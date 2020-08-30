@@ -1,4 +1,4 @@
-package Model;
+package com.example.quizer_back.Model;
 
 import org.springframework.lang.NonNull;
 

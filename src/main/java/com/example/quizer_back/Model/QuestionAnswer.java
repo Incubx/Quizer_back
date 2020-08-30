@@ -1,4 +1,4 @@
-package Model;
+package com.example.quizer_back.Model;
 
 
 
@@ -12,7 +12,6 @@ public class QuestionAnswer {
 
     Question question;
 
-    @SuppressWarnings("unused")
     public QuestionAnswer() {
     }
 

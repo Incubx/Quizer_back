@@ -1,24 +1,16 @@
-package Model;
+package com.example.quizer_back.Model;
 
 
 
-
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 
 public class Answer {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+
     private int id;
 
 
-    @Column(name = "text",unique = true)
     private String answerText;
 
-    @SuppressWarnings("unused")
     public Answer() {
     }
 
