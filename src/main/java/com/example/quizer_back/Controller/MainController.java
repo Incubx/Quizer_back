@@ -11,7 +11,7 @@ public class MainController {
 
     @GetMapping
     public ModelAndView getMainPage(){
-        return new ModelAndView("main");
+        return new ModelAndView("Main");
     }
 
 

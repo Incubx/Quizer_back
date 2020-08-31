@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" , xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>QuizList</title>
+</head>
+<body>
+<h2>Quiz List</h2>
+<table border="1">
+    <tr>
+        <th>Title</th>
+        <th>Size</th>
+        <th>Is paid</th>
+    </tr>
+    <tr th:each="quiz : ${quizList}">
+        <td><a th:href="'/quiz/'+${quiz.id}" th:text="${quiz.title}">TITLE</a></td>
+        <td th:text="${quiz.size}">SIZE</td>
+        <td th:text="${quiz.paid}">IS_PAID</td>
+    </tr>
+</table>
+</body>
+</html>

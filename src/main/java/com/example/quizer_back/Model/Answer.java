@@ -1,17 +1,28 @@
 package com.example.quizer_back.Model;
 
 
+import javax.persistence.*;
+import java.util.List;
 
-
-
+@Entity
+@Table(name = "answer")
 public class Answer {
 
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private int id;
 
-
+    @Column(name = "text")
     private String answerText;
 
+
     public Answer() {
+    }
+
+    public int getId() {
+        return id;
     }
 
     public Answer(String answerText) {

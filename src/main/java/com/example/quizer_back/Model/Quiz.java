@@ -2,78 +2,69 @@ package com.example.quizer_back.Model;
 
 import org.springframework.lang.NonNull;
 
-import java.io.Serializable;
+import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 
-
-public class Quiz implements Serializable {
-
+@Entity
+@Table(name = "quiz")
+public class Quiz {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private int id;
 
+    @Column(name = "title")
     private String title;
 
+    @Column(name = "size")
     private int size;
 
-    private boolean solved;
+    @Column(name = "paid")
+    private boolean paid;
 
-    private boolean free;
+    @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Question> questions;
 
-    private Collection<Question> questions;
-
-    public Quiz(String title, int size, boolean solved, boolean free,@NonNull Collection<Question> questions) {
-        this.title = title;
-        this.size = size;
-        this.solved = solved;
-        this.free = free;
-        this.questions = questions;
-    }
-
-    public Quiz(String title, int size, boolean solved, boolean free) {
-        this.title = title;
-        this.size = size;
-        this.solved = solved;
-        this.free = free;
+    public Quiz() {
         questions = new ArrayList<>();
     }
 
-    public Quiz() {
-
+    public Quiz(String title, int size, boolean paid) {
+        this.title = title;
+        this.size = size;
+        this.paid = paid;
+        questions = new ArrayList<>();
     }
 
-    public Collection<Question> getQuestions() {
-        return questions;
+    public int getId() {
+        return id;
     }
 
-
-    public boolean isFree() {
-        return free;
-    }
-
-    public void setFree(boolean free) {
-        this.free = free;
-    }
-
-    public boolean isSolved() {
-        return solved;
-    }
-
-    public void setSolved(boolean solved) {
-        this.solved = solved;
+    public boolean isPaid() {
+        return paid;
     }
 
     public String getTitle() {
         return title;
     }
 
+    public int getSize() {
+        return size;
+    }
+
+    public List<Question> getQuestions() {
+        return questions;
+    }
+
+
     public void addQuestion(Question question) {
-        question.setQuiz(this);
         questions.add(question);
     }
 
-    public int getSize() {
-        return size;
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
     }
 
     @NonNull
@@ -83,10 +74,8 @@ public class Quiz implements Serializable {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", size=" + size +
-                ", solved=" + solved +
-                ", free=" + free +
+                ", free=" + paid +
                 '}';
     }
-
 
 }
