@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" , xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>AddPage</title>
+</head>
+<body>
+
+<form method="post" th:action="@{/quiz/add}" th:object="${quiz}">
+
+    <input type="hidden" th:if="${quiz.id!=0}" th:value="${quiz.id}" th:field="*{id}">
+    <label for="title">Title:</label>
+    <input id="title" type="text" th:field="*{title}">
+    <br/>
+    <br/>
+    <label for="paid">is Paid:</label>
+    <input id="paid" type="checkbox" th:field="*{paid}">
+    <br/>
+    <input type="submit" value="Save">
+</form>
+
+
+</body>
+</html>

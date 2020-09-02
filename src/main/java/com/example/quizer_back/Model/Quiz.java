@@ -11,7 +11,7 @@ import java.util.List;
 @Table(name = "quiz")
 public class Quiz {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
@@ -78,4 +78,20 @@ public class Quiz {
                 '}';
     }
 
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    public void setPaid(boolean paid) {
+        this.paid = paid;
+    }
 }
