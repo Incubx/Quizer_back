@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.NoSuchElementException;
+
 @Controller
 @RequestMapping("/quiz")
 public class QuizController {
@@ -32,14 +34,18 @@ public class QuizController {
     @GetMapping("/{id}")
     public ModelAndView getQuizById(@PathVariable int id) {
         ModelAndView modelAndView = new ModelAndView("quizPage");
-        Quiz quiz = quizService.getQuizById(id);
-        return modelAndView.addObject("quiz", quiz);
+        try {
+            Quiz quiz = quizService.getQuizById(id);
+            return modelAndView.addObject("quiz", quiz);
+        } catch (NoSuchElementException e) {
+            return modelAndView;
+        }
     }
 
     @PostMapping("/add")
     public ModelAndView addQuiz(@ModelAttribute Quiz quiz) {
         System.out.println(quiz);
-        quizService.addQuiz(quiz);
+        quizService.saveQuiz(quiz);
         return new ModelAndView("redirect:/quiz/");
     }
 
@@ -64,7 +70,7 @@ public class QuizController {
     @PostMapping("/edit")
     public ModelAndView editQuiz(@ModelAttribute Quiz quiz){
         System.out.println(quiz);
-        quizService.addQuiz(quiz);
+        quizService.saveQuiz(quiz);
         return new ModelAndView("redirect:/quiz/");
     }
 }

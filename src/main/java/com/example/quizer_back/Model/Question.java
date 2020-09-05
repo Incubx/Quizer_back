@@ -22,25 +22,17 @@ public class Question {
     @JsonIgnore
     private Quiz quiz;
 
-    @ManyToOne
-    @JoinColumn(name = "rightAnswerId")
-    private Answer rightAnswer;
-
-
-
-
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "questionAnswer",
-            joinColumns = @JoinColumn(name = "questionId"),
-            inverseJoinColumns = @JoinColumn(name = "answerId"))
-    private List<Answer> answerList;
+    @OneToMany(mappedBy = "question",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Answer> answers;
 
     public Question() {
+    }
+    public Question(Quiz quiz){
+        this.quiz=quiz;
     }
 
     public Question(String questionText, Answer answer, Quiz quiz) {
         this.questionText = questionText;
-        this.rightAnswer = answer;
         this.quiz = quiz;
 
     }
@@ -57,20 +49,33 @@ public class Question {
         return quiz;
     }
 
-    public Answer getRightAnswer() {
-        return rightAnswer;
+
+    public List<Answer> getAnswers() {
+        return answers;
     }
 
-    public List<Answer> getAnswerList() {
-        return answerList;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setQuestionText(String questionText) {
+        this.questionText = questionText;
+    }
+
+    public void setAnswers(List<Answer> answers) {
+        this.answers = answers;
+    }
+
+    public void setQuiz(Quiz quiz) {
+        this.quiz = quiz;
     }
 
     @Override
     public String toString() {
         return "Question{" +
                 "id=" + id +
-                ", question='" + questionText + '\'' +
-                ", rightAnswer=" + rightAnswer +
+                ", questionText='" + questionText + '\'' +
+                ", answers=" + answers +
                 '}';
     }
 }

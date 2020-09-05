@@ -1,14 +1,17 @@
 package com.example.quizer_back.Service;
 
 
+import com.example.quizer_back.Model.Answer;
+import com.example.quizer_back.Model.Question;
 import com.example.quizer_back.Model.Quiz;
 import com.example.quizer_back.Repository.QuestionRepository;
 import com.example.quizer_back.Repository.QuizRepository;
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -36,13 +39,15 @@ public class QuizService {
     }
 
     @Transactional
-    public Quiz getQuizById(int id) {
+    public Quiz getQuizById(int id) throws NoSuchElementException{
         Optional<Quiz> quizOpt = quizRepository.findById(id);
-        return quizOpt.orElse(null);
+        if(quizOpt.isPresent())
+            return quizOpt.get();
+        else throw new NoSuchElementException();
     }
 
     @Transactional
-    public void addQuiz(Quiz quiz){
+    public void saveQuiz(Quiz quiz){
         quizRepository.save(quiz);
     }
 
@@ -54,5 +59,13 @@ public class QuizService {
     @Transactional
     public void updateQuiz(Quiz quiz){
         quizRepository.save(quiz);
+    }
+
+    @Transactional
+    public void saveQuestion(Question question){
+        for(Answer answer:question.getAnswers()){
+            answer.setQuestion(question);
+        }
+        questionRepository.save(question);
     }
 }

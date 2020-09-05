@@ -1,8 +1,9 @@
 package com.example.quizer_back.Model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "answer")
@@ -16,6 +17,11 @@ public class Answer {
 
     @Column(name = "text")
     private String answerText;
+
+    @ManyToOne
+    @JoinColumn(name = "questionId")
+    @JsonIgnore
+    private Question question;
 
 
     public Answer() {
@@ -35,6 +41,14 @@ public class Answer {
 
     public void setAnswerText(String answerText) {
         this.answerText = answerText;
+    }
+
+    public Question getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(Question question) {
+        this.question = question;
     }
 
     @Override

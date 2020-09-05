@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" , xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add question</title>
+</head>
+<body>
+
+
+<form method="post" th:action="@{/question/add}" th:object="${question}">
+
+    <input type="hidden" th:if="${question.id!=0}" th:field="*{id}" th:value="${question.id}">
+    <input type="hidden" th:field="*{quiz}" th:value="${question.quiz}">
+    <label for="Text">Question text:</label>
+    <input id="Text" type="text" th:field="*{questionText}">
+    <br/>
+
+    <label>
+        Answer 1 <br>
+        <input type="text" th:field="*{answers[0].answerText}">
+        <input type="radio" name="isCorrect">
+    </label>
+    <br>
+    <label>
+        Answer 2 <br>
+        <input type="text" th:field="*{answers[1].answerText}">
+        <input type="radio" name="isCorrect">
+    </label>
+    <br>
+    <label>
+        Answer 3 <br>
+        <input type="text" th:field="*{answers[2].answerText}">
+        <input type="radio" name="isCorrect">
+    </label>
+    <br>
+    <label>
+        Answer 4 <br>
+        <input type="text" th:field="*{answers[3].answerText}">
+        <input type="radio" name="isCorrect">
+    </label>
+    <br/>
+    <input type="submit" value="Save">
+</form>
+
+</body>
+</html>

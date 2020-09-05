@@ -10,6 +10,7 @@
 <h2 th:text="${quiz.title}">TITLE</h2>
 <div th:text="'Size:'+${quiz.size}">SIZE</div>
 <div th:text="'Is paid: '+${quiz.paid}">IS_PAID</div>
+<div th:text="'Id: '+${quiz.id}">ID</div>
 <br/>
 
 <table border="1">
@@ -18,6 +19,7 @@
         <th>Text</th>
         <th>Edit</th>
         <th>Delete</th>
+
     </tr>
     <tr th:if="${quiz.questions.size()>0}" th:each="question,state : ${quiz.questions}">
         <td><a th:href="'~/question/'+${question.id}" th:text="${state.index+1}"> </a></td>
@@ -25,7 +27,7 @@
         <td><a th:href="@{'~/question/edit/'+${question.id}}">Edit</a> </td>
         <td><a th:href="'~/question/delete/'+${question.id}">Delete</a> </td>
     </tr>
-    <tr><td colspan="4"><a th:href="@{~/question/add}">Add question</a></td></tr>
+    <tr><td colspan="4"><a th:href="@{'~/question/add/' + ${quiz.id}}">Add question</a></td></tr>
 
 </table>
 </body>
