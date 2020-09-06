@@ -2,6 +2,7 @@ package com.example.quizer_back.Controller;
 
 
 import com.example.quizer_back.Model.Question;
+import com.example.quizer_back.Model.Quiz;
 import com.example.quizer_back.Service.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,7 +33,28 @@ public class QuestionController {
     public ModelAndView addQuestion(@ModelAttribute Question question){
         System.out.println(question);
         quizService.saveQuestion(question);
-        return new ModelAndView("redirect:/");
+        return new ModelAndView(redirectToQuiz(question));
+
+    }
+
+    @GetMapping("/delete/{id}")
+    public ModelAndView deleteQuestion(@PathVariable int id){
+        Question curQuestion = quizService.getQuestionById(id);
+        quizService.deleteQuestionById(id);
+        return new ModelAndView(redirectToQuiz(curQuestion));
+
+    }
+
+    @GetMapping("/edit/{id}")
+    public ModelAndView editQuestionPage(@PathVariable int id){
+        Question curQuestion = quizService.getQuestionById(id);
+        //quizService.deleteQuestionById(id);
+        return new ModelAndView(redirectToQuiz(curQuestion));
+
+    }
+
+    private String redirectToQuiz(Question question){
+        return "redirect:/quiz/"+question.getQuiz().getId();
 
     }
 }

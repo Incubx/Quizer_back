@@ -22,12 +22,14 @@
 
     </tr>
     <tr th:if="${quiz.questions.size()>0}" th:each="question,state : ${quiz.questions}">
-        <td><a th:href="'~/question/'+${question.id}" th:text="${state.index+1}"> </a></td>
+        <td th:text="${state.index+1}"></td>
         <td th:text="${question.questionText}">TEXT</td>
-        <td><a th:href="@{'~/question/edit/'+${question.id}}">Edit</a> </td>
-        <td><a th:href="'~/question/delete/'+${question.id}">Delete</a> </td>
+        <td><a th:href="@{'~/question/edit/'+${question.id}}">Edit</a></td>
+        <td><a th:href="@{'~/question/delete/'+${question.id}}">Delete</a></td>
     </tr>
-    <tr><td colspan="4"><a th:href="@{'~/question/add/' + ${quiz.id}}">Add question</a></td></tr>
+    <tr>
+        <td colspan="4"><a th:href="@{'~/question/add/' + ${quiz.id}}">Add question</a></td>
+    </tr>
 
 </table>
 </body>

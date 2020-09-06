@@ -62,10 +62,23 @@ public class QuizService {
     }
 
     @Transactional
+    public Question getQuestionById(int id)throws NoSuchElementException{
+        Optional<Question> questionOpt = questionRepository.findById(id);
+        if(questionOpt.isPresent())
+            return questionOpt.get();
+        else throw new NoSuchElementException();
+    }
+
+    @Transactional
     public void saveQuestion(Question question){
         for(Answer answer:question.getAnswers()){
             answer.setQuestion(question);
         }
         questionRepository.save(question);
+    }
+
+    @Transactional
+    public void deleteQuestionById(int id) {
+        questionRepository.deleteById(id);
     }
 }
