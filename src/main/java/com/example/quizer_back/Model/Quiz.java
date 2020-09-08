@@ -25,7 +25,7 @@ public class Quiz {
     private boolean paid;
 
     @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Question> questions;
+    private final List<Question> questions;
 
     public Quiz() {
         questions = new ArrayList<>();
@@ -36,6 +36,10 @@ public class Quiz {
         this.size = size;
         this.paid = paid;
         questions = new ArrayList<>();
+    }
+
+    public void changeSize(int change){
+        size+=change;
     }
 
     public int getId() {
@@ -59,26 +63,6 @@ public class Quiz {
     }
 
 
-    public void addQuestion(Question question) {
-        questions.add(question);
-    }
-
-    public void setQuestions(List<Question> questions) {
-        this.questions = questions;
-    }
-
-    @NonNull
-    @Override
-    public String toString() {
-        return "Quiz{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", size=" + size +
-                ", free=" + paid +
-                '}';
-    }
-
-
     public void setId(int id) {
         this.id = id;
     }
@@ -95,7 +79,14 @@ public class Quiz {
         this.paid = paid;
     }
 
-    public void changeSize(int change){
-        size+=change;
+    @NonNull
+    @Override
+    public String toString() {
+        return "Quiz{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", size=" + size +
+                ", free=" + paid +
+                '}';
     }
 }
