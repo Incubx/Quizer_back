@@ -3,13 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <title>Add question</title>
+    <script>
+        function onBtnClicked(btn){
+
+            if(btn.checked ===true) {
+
+                btn.value = 1;
+
+                const btnId = btn.id;
+                let curBtn;
+                let id;
+                for (let i = 0; i < 4; i++) {
+                    id = `btn${i}`;
+                    if (id !== btnId) {
+                        curBtn = document.getElementById(id);
+                        curBtn.value = 0;
+                        curBtn.checked = false;
+                    }
+                }
+
+            }
+            else{
+                btn.checked=true;
+                btn.value=1;
+            }
+
+        }
+    </script>
 </head>
 <body>
 
 
 <form method="post" th:action="@{/question/add}" th:object="${question}">
 
-    <input type="hidden" th:if="${question.id!=0}" th:field="*{id}" th:value="${question.id}">
+    <input type="hidden" th:if="${question.id!=0}" th:field="*{id}" th:value="${question.id}" >
     <input type="hidden" th:field="*{quiz}" th:value="${question.quiz}">
     <label for="Text">Question text:</label>
     <input id="Text" type="text" th:field="*{questionText}">
@@ -18,25 +45,29 @@
     <label>
         Answer 1 <br>
         <input type="text" th:field="*{answers[0].answerText}">
-        <input type="radio" name="isCorrect">
+        <input type="checkbox" th:field="*{answers[0].correct}"
+               value="0" id="btn0" onchange="onBtnClicked(this)">
     </label>
     <br>
     <label>
         Answer 2 <br>
         <input type="text" th:field="*{answers[1].answerText}">
-        <input type="radio" name="isCorrect">
+        <input type="checkbox" th:field="*{answers[1].correct}"
+               value="0" id="btn1" onchange="onBtnClicked(this)" >
     </label>
     <br>
     <label>
         Answer 3 <br>
         <input type="text" th:field="*{answers[2].answerText}">
-        <input type="radio" name="isCorrect">
+        <input type="checkbox" th:field="*{answers[2].correct}"
+               value="0" id="btn2" onchange="onBtnClicked(this)" >
     </label>
     <br>
     <label>
         Answer 4 <br>
         <input type="text" th:field="*{answers[3].answerText}">
-        <input type="radio" name="isCorrect">
+        <input type="checkbox" th:field="*{answers[3].correct}"
+               value="0" id="btn3" onchange="onBtnClicked(this)">
     </label>
     <br/>
     <input type="submit" value="Save">

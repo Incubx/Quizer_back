@@ -18,10 +18,13 @@ public class Answer {
     @Column(name = "text")
     private String answerText;
 
-    @ManyToOne
-    @JoinColumn(name = "questionId")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "questionId" )
     @JsonIgnore
     private Question question;
+
+    @Column(name = "isCorrect")
+    private boolean correct;
 
 
     public Answer() {
@@ -49,6 +52,14 @@ public class Answer {
 
     public void setQuestion(Question question) {
         this.question = question;
+    }
+
+    public boolean isCorrect() {
+        return correct;
+    }
+
+    public void setCorrect(boolean correct) {
+        this.correct = correct;
     }
 
     @Override

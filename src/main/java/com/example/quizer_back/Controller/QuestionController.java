@@ -1,8 +1,10 @@
 package com.example.quizer_back.Controller;
 
 
+//TODO question editing;
+//TODO choosing of correct answer
+
 import com.example.quizer_back.Model.Question;
-import com.example.quizer_back.Model.Quiz;
 import com.example.quizer_back.Service.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
