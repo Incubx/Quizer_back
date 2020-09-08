@@ -6,7 +6,6 @@ import com.example.quizer_back.Model.Question;
 import com.example.quizer_back.Model.Quiz;
 import com.example.quizer_back.Repository.QuestionRepository;
 import com.example.quizer_back.Repository.QuizRepository;
-import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -70,15 +69,31 @@ public class QuizService {
     }
 
     @Transactional
-    public void saveQuestion(Question question){
+    public void addQuestion(Question question){
         for(Answer answer:question.getAnswers()){
             answer.setQuestion(question);
         }
         questionRepository.save(question);
+        changeQuizSize(question,1);
+
+
     }
 
     @Transactional
-    public void deleteQuestionById(int id) {
-        questionRepository.deleteById(id);
+    public void editQuestion(Question question){
+        questionRepository.save(question);
+    }
+
+    @Transactional
+    public void deleteQuestion(Question question) {
+        changeQuizSize(question,-1);
+        questionRepository.deleteById(question.getId());
+    }
+
+
+    public void changeQuizSize(Question question,int changeNumber){
+        Quiz quiz =question.getQuiz();
+        quiz.changeSize(changeNumber);
+        quizRepository.save(quiz);
     }
 }

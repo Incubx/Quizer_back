@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
+
+
 @Entity
 @Table(name = "answer")
 public class Answer {
@@ -18,7 +20,7 @@ public class Answer {
     @Column(name = "text")
     private String answerText;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "questionId" )
     @JsonIgnore
     private Question question;
@@ -32,6 +34,10 @@ public class Answer {
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Answer(String answerText) {

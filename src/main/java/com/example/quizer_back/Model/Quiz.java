@@ -94,4 +94,8 @@ public class Quiz {
     public void setPaid(boolean paid) {
         this.paid = paid;
     }
+
+    public void changeSize(int change){
+        size+=change;
+    }
 }

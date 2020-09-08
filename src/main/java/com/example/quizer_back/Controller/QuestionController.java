@@ -1,9 +1,6 @@
 package com.example.quizer_back.Controller;
 
 
-//TODO question editing;
-//TODO choosing of correct answer
-
 import com.example.quizer_back.Model.Question;
 import com.example.quizer_back.Service.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,30 +29,36 @@ public class QuestionController {
     }
 
     @PostMapping("/add")
-    public ModelAndView addQuestion(@ModelAttribute Question question){
+    public ModelAndView saveQuestion(@ModelAttribute Question question){
         System.out.println(question);
-        quizService.saveQuestion(question);
-        return new ModelAndView(redirectToQuiz(question));
+        quizService.addQuestion(question);
+        return new ModelAndView(redirectionToQuiz(question));
 
     }
 
     @GetMapping("/delete/{id}")
     public ModelAndView deleteQuestion(@PathVariable int id){
         Question curQuestion = quizService.getQuestionById(id);
-        quizService.deleteQuestionById(id);
-        return new ModelAndView(redirectToQuiz(curQuestion));
+        quizService.deleteQuestion(curQuestion);
+        return new ModelAndView(redirectionToQuiz(curQuestion));
 
     }
 
     @GetMapping("/edit/{id}")
-    public ModelAndView editQuestionPage(@PathVariable int id){
-        Question curQuestion = quizService.getQuestionById(id);
-        //quizService.deleteQuestionById(id);
-        return new ModelAndView(redirectToQuiz(curQuestion));
-
+    public ModelAndView editQuestionPage(@PathVariable int id, Model model){
+        Question question = quizService.getQuestionById(id);
+        model.addAttribute("question",question);
+        return new ModelAndView("addQuestionPage");
     }
 
-    private String redirectToQuiz(Question question){
+    @PostMapping("/edit")
+    public ModelAndView editQuestion(@ModelAttribute Question question){
+        System.out.println(question);
+        quizService.editQuestion(question);
+        return new ModelAndView(redirectionToQuiz(question));
+    }
+
+    private String redirectionToQuiz(Question question){
         return "redirect:/quiz/"+question.getQuiz().getId();
 
     }
