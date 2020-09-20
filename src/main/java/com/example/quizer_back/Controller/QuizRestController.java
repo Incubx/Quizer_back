@@ -42,7 +42,6 @@ public class QuizRestController {
             e.printStackTrace();
         }
         return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
-
     }
 
     @GetMapping(value = "/{id}")
