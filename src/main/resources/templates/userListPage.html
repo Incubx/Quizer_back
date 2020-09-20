@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" , xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>QuizList</title>
+</head>
+<body>
+<h2>Quiz List</h2>
+<table border="1">
+    <tr>
+        <th>№</th>
+        <th>NickName</th>
+        <th>Email</th>
+        <th>Password</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    <tr th:each="user,state : ${userList}">
+        <td th:text="${state.index+1}">INDEX</td>
+        <td th:text="${user.nickname}"> >NICKNAME</td>
+        <td th:text="${user.email}">EMAIL</td>
+        <td th:text="${user.password}">PASSWORD</td>
+        <td><a th:href="@{'/user/edit/'+${user.id}}">Edit</a></td>
+        <td><a th:href="@{'/user/delete/'+${user.id}}">Delete</a></td>
+    </tr>
+    <tr>
+        <td th:colspan="6"><a href="/user/add"> Add User</a></td>
+    </tr>
+</table>
+</body>
+</html>
