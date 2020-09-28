@@ -1,21 +1,11 @@
 package com.example.quizer_back.Controller;
 
-import com.example.quizer_back.Model.Quiz;
 import com.example.quizer_back.Model.User;
-import com.example.quizer_back.Repository.UserRepository;
 import com.example.quizer_back.Service.UserService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.monitorjbl.json.JsonView;
-import com.monitorjbl.json.JsonViewModule;
-import com.monitorjbl.json.Match;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.NoSuchElementException;
 
@@ -32,16 +22,33 @@ public class UserRESTController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<Iterable<User>> getQuizList(){
+    public ResponseEntity<Iterable<User>> getUserList(){
         Iterable<User> userList= userService.getUserList();
         return new ResponseEntity<>(userList, HttpStatus.OK);
 
     }
 
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<User> getQuizById(@PathVariable int id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable int id) {
         try {
             User user = userService.getUserById(id);
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        }
+        catch (NoSuchElementException e){
+            return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("/")
+    public int registerUser(@RequestBody User user){
+        userService.saveUser(user);
+        return user.getId();
+    }
+    
+    @GetMapping("/{email}")
+    public ResponseEntity<User> getUserById(@PathVariable String email){
+        try {
+            User user = userService.getUserByEmail(email);
             return new ResponseEntity<>(user, HttpStatus.OK);
         }
         catch (NoSuchElementException e){

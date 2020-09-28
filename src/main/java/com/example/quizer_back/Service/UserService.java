@@ -1,6 +1,5 @@
 package com.example.quizer_back.Service;
 
-import com.example.quizer_back.Model.Quiz;
 import com.example.quizer_back.Model.User;
 import com.example.quizer_back.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +31,15 @@ public class UserService {
         if(userOpt.isPresent())
             return userOpt.get();
         else throw new NoSuchElementException();
+    }
+
+    @Transactional
+    public User getUserByEmail(String email) throws NoSuchElementException{
+        Optional<User> userOpt = userRepository.getUserByEmail(email);
+        if(userOpt.isPresent())
+            return userOpt.get();
+        else throw new NoSuchElementException();
+
     }
 
     @Transactional
