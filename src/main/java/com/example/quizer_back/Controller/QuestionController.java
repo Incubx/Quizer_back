@@ -33,7 +33,6 @@ public class QuestionController {
         System.out.println(question);
         quizService.addQuestion(question);
         return new ModelAndView(redirectionToQuiz(question));
-
     }
 
     @GetMapping("/delete/{id}")
