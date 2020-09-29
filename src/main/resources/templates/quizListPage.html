@@ -18,8 +18,8 @@
         <td th:text="${state.index+1}">INDEX</td>
         <td><a th:href="'/quiz/'+${quiz.id}" th:text="${quiz.title}">TITLE</a></td>
         <td th:text="${quiz.size}">SIZE</td>
-        <td ><a th:href="@{'/quiz/edit/'+${quiz.id}}">Edit</a> </td>
-        <td ><a th:href="@{'/quiz/delete/'+${quiz.id}}">Delete</a> </td>
+        <td ><a th:href="'/quiz/edit/'+${quiz.id}">Edit</a> </td>
+        <td ><a th:href="'/quiz/delete/'+${quiz.id}">Delete</a> </td>
     </tr>
     <tr>
         <td th:colspan="5"><a href="/quiz/add"> Add Quiz</a></td>
