@@ -16,10 +16,8 @@ import java.util.Optional;
 @Service
 public class QuizService {
 
-
     private QuizRepository quizRepository;
     private QuestionRepository questionRepository;
-
 
     @Autowired
     public void setQuizRepository(QuizRepository quizRepository) {
@@ -34,7 +32,6 @@ public class QuizService {
     @Transactional
     public Iterable<Quiz> getQuizList() {
         return quizRepository.findAll();
-
     }
 
     @Transactional
@@ -55,10 +52,6 @@ public class QuizService {
         quizRepository.deleteById(id);
     }
 
-    @Transactional
-    public void updateQuiz(Quiz quiz){
-        quizRepository.save(quiz);
-    }
 
     @Transactional
     public Question getQuestionById(int id)throws NoSuchElementException{
@@ -75,8 +68,6 @@ public class QuizService {
         }
         questionRepository.save(question);
         changeQuizSize(question,1);
-
-
     }
 
     @Transactional
@@ -90,8 +81,7 @@ public class QuizService {
         questionRepository.deleteById(question.getId());
     }
 
-
-    public void changeQuizSize(Question question,int changeNumber){
+    private void changeQuizSize(Question question,int changeNumber){
         Quiz quiz =question.getQuiz();
         quiz.changeSize(changeNumber);
         quizRepository.save(quiz);

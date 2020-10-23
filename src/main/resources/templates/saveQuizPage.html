@@ -2,18 +2,17 @@
 <html lang="en" , xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>AddPage</title>
+    <title th:if="${quiz.id!=0}">Edit Page</title>
+    <title th:if="${quiz.id==0}">Add Page</title>
 </head>
 <body>
 
-<form method="post" th:action="@{/quiz/add}" th:object="${quiz}">
+<form method="post" th:action="@{/quiz/save}" th:object="${quiz}">
 
-    <input type="hidden" th:if="${quiz.id!=0}" th:value="${quiz.id}" th:field="*{id}">
+    <input type="hidden" th:if="${quiz.id!=0}" th:field="*{id}">
     <label for="title">Title:</label>
     <input id="title" type="text" th:field="*{title}">
     <br/>
-    <label for="paid">is Paid:</label>
-    <input id="paid" type="checkbox" th:field="*{paid}">
     <br/>
     <input type="submit" value="Save">
 </form>

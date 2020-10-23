@@ -21,9 +21,6 @@ public class Quiz {
 
     private int size;
 
-    @Column(name = "paid")
-    private boolean paid;
-
     @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private final List<Question> questions;
 
@@ -34,7 +31,7 @@ public class Quiz {
     public Quiz(String title, int size, boolean paid) {
         this.title = title;
         this.size = size;
-        this.paid = paid;
+
         questions = new ArrayList<>();
     }
 
@@ -46,9 +43,7 @@ public class Quiz {
         return id;
     }
 
-    public boolean isPaid() {
-        return paid;
-    }
+
 
     public String getTitle() {
         return title;
@@ -75,9 +70,7 @@ public class Quiz {
         this.size = size;
     }
 
-    public void setPaid(boolean paid) {
-        this.paid = paid;
-    }
+
 
     @NonNull
     @Override
@@ -86,7 +79,6 @@ public class Quiz {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", size=" + size +
-                ", free=" + paid +
                 '}';
     }
 }

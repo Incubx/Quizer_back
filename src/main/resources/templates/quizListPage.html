@@ -6,12 +6,14 @@
 </head>
 <body>
 <h2>Quiz List</h2>
+<br>
+<a th:href="@{/}">Back</a>
+<br/>
 <table border="1">
     <tr>
         <th>№</th>
         <th>Title</th>
         <th>Size</th>
-        <th>Is paid</th>
         <th>Edit</th>
         <th>Delete</th>
     </tr>
@@ -19,9 +21,8 @@
         <td th:text="${state.index+1}">INDEX</td>
         <td><a th:href="'/quiz/'+${quiz.id}" th:text="${quiz.title}">TITLE</a></td>
         <td th:text="${quiz.size}">SIZE</td>
-        <td th:text="${quiz.paid}">IS_PAID</td>
-        <td ><a th:href="@{'/quiz/edit/'+${quiz.id}}">Edit</a> </td>
-        <td ><a th:href="@{'/quiz/delete/'+${quiz.id}}">Delete</a> </td>
+        <td ><a th:href="'/quiz/edit/'+${quiz.id}">Edit</a> </td>
+        <td ><a th:href="'/quiz/delete/'+${quiz.id}">Delete</a> </td>
     </tr>
     <tr>
         <td th:colspan="6"><a href="/quiz/add"> Add Quiz</a></td>

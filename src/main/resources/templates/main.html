@@ -1,10 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Hello</title>
 </head>
 <body>
-Hello!
+Welcome, This is Quizer administration panel!
+<br>
+<a th:href="@{/quiz/}">To Quiz list</a>
+<br>
+<a href="/quiz/add">Create Quiz</a>
 </body>
 </html>
