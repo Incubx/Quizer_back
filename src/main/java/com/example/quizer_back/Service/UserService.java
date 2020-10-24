@@ -25,13 +25,6 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    @Transactional
-    public User getUserById(int id) throws NoSuchElementException {
-        Optional<User> userOpt = userRepository.findById(id);
-        if(userOpt.isPresent())
-            return userOpt.get();
-        else throw new NoSuchElementException();
-    }
 
     @Transactional
     public User getUserByEmail(String email) throws NoSuchElementException{
@@ -44,6 +37,7 @@ public class UserService {
 
     @Transactional
     public void saveUser(User user){
+
         userRepository.save(user);
     }
 

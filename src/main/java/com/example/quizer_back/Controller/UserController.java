@@ -52,18 +52,4 @@ public class UserController {
         return new ModelAndView("redirect:/user/");
     }
 
-    @GetMapping("/edit/{id}")
-    public ModelAndView editQuizPage(Model model,@PathVariable int id){
-        model.addAttribute(userService.getUserById(id));
-        System.out.println(userService.getUserById(id));
-        return new ModelAndView("addUserPage");
-    }
-
-    @PostMapping("/edit")
-    public ModelAndView editQuiz(@ModelAttribute User user){
-        System.out.println(user);
-        userService.saveUser(user);
-        return new ModelAndView("redirect:/user/");
-    }
-
 }

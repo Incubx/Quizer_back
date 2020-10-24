@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.NoSuchElementException;
 
-
+//code x - OK
+//code -1 - already registered
+//code -2 - wrong password
+//code -3 - no such user
 @RestController
 @RequestMapping("/rest/user")
 public class UserRESTController {
@@ -21,38 +24,31 @@ public class UserRESTController {
         this.userService = userService;
     }
 
-    @GetMapping("/")
-    public ResponseEntity<Iterable<User>> getUserList(){
-        Iterable<User> userList= userService.getUserList();
-        return new ResponseEntity<>(userList, HttpStatus.OK);
 
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable int id) {
+    @PostMapping("/register")
+    public ResponseEntity<Integer> registerUser(@RequestBody User user) {
         try {
-            User user = userService.getUserById(id);
-            return new ResponseEntity<>(user, HttpStatus.OK);
+            userService.getUserByEmail(user.getEmail());
+            return new ResponseEntity<>(-1, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            userService.saveUser(user);
+            return new ResponseEntity<>(user.getId(), HttpStatus.OK);
         }
-        catch (NoSuchElementException e){
-            return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
-        }
+
     }
 
-    @PostMapping("/")
-    public int registerUser(@RequestBody User user){
-        userService.saveUser(user);
-        return user.getId();
-    }
-    
-    @GetMapping("/{email}")
-    public ResponseEntity<User> getUserById(@PathVariable String email){
+    @PostMapping("/authorize")
+    public ResponseEntity<Integer> authorizeUser(@RequestBody User user) {
         try {
-            User user = userService.getUserByEmail(email);
-            return new ResponseEntity<>(user, HttpStatus.OK);
+            User storedUser = userService.getUserByEmail(user.getEmail());
+            if (storedUser.getPassword().equals(user.getPassword())) {
+                System.out.println(storedUser);
+                return new ResponseEntity<>(storedUser.getId(), HttpStatus.OK);
+            }else return new ResponseEntity<>(-2,HttpStatus.OK);
+
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<>(-3, HttpStatus.OK);
         }
-        catch (NoSuchElementException e){
-            return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
-        }
+
     }
 }

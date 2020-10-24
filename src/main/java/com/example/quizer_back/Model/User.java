@@ -18,6 +18,16 @@ public class User {
     //@Column(name = "password")
     private String password;
 
+    private String rating;
+
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
+    }
+
     public String getNickname() {
         return nickname;
     }
@@ -56,6 +66,7 @@ public class User {
                 ", nickname='" + nickname + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", rating='" + rating + '\'' +
                 '}';
     }
 }
