@@ -20,7 +20,7 @@ import java.util.Optional;
 
 @org.springframework.web.bind.annotation.RestController
 @RequestMapping("/rest/quiz")
-public class QuizRestController {
+public class QuizRESTController {
 
 
     private QuizRepository quizRepository;

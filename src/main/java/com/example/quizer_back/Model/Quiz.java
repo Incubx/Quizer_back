@@ -12,13 +12,13 @@ import java.util.List;
 public class Quiz {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+
     private int id;
 
-    @Column(name = "title")
+
     private String title;
 
-    @Column(name = "size")
+
     private int size;
 
     @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
