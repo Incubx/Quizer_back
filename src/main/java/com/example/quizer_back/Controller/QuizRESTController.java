@@ -33,7 +33,7 @@ public class QuizRESTController {
 
     @GetMapping("/")
     public ResponseEntity<String> getQuizList() {
-        Iterable<Quiz> quizList = quizService.getQuizList();
+        Iterable<Quiz> quizList = quizService.getNotEmptyQuizList();
         //exclude question list from JSON
         ObjectMapper mapper = new ObjectMapper().registerModule(new JsonViewModule());
         try {
