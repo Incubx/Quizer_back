@@ -50,4 +50,11 @@ public class UserService {
     public void updateUser(User user){
         userRepository.save(user);
     }
+
+    public User getUserById(int id) {
+        Optional<User> userOpt = userRepository.findById(id);
+        if(userOpt.isPresent())
+            return userOpt.get();
+        else throw new NoSuchElementException();
+    }
 }

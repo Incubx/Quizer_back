@@ -54,5 +54,4 @@ public class QuizRESTController {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
-
 }

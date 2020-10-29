@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.NoSuchElementException;
+
 
 @Controller
 @RequestMapping("/user")
@@ -44,6 +46,19 @@ public class UserController {
         model.addAttribute(new User());
         return new ModelAndView("addUserPage");
     }
+
+    @GetMapping("/edit/{id}")
+    public ModelAndView editQuizPage(@PathVariable int id) {
+        ModelAndView modelAndView = new ModelAndView("addUserPage");
+        try {
+            User user = userService.getUserById(id);
+            modelAndView.addObject("user", user);
+            return modelAndView;
+        } catch (NoSuchElementException e) {
+            return modelAndView;
+        }
+    }
+
 
     @GetMapping("/delete/{id}")
     public ModelAndView deleteQuiz(@PathVariable int id){
