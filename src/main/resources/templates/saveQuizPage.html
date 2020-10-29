@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" , xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title th:if="${quiz.id!=0}">Edit Page</title>
@@ -10,6 +10,7 @@
 <form method="post" th:action="@{/quiz/save}" th:object="${quiz}">
 
     <input type="hidden" th:if="${quiz.id!=0}" th:field="*{id}">
+    <input type="hidden" th:field="*{size}">
     <label for="title">Title:</label>
     <input id="title" type="text" th:field="*{title}">
     <br/>

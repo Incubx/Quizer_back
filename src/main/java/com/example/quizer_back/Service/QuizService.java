@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -32,6 +34,13 @@ public class QuizService {
     @Transactional
     public Iterable<Quiz> getQuizList() {
         return quizRepository.findAll();
+    }
+
+    @Transactional
+    public List<Quiz> getNotEmptyQuizList(){
+        List<Quiz> quizList = (List<Quiz>) quizRepository.findAll();
+        quizList.removeIf(quiz -> quiz.getSize() == 0);
+        return quizList;
     }
 
     @Transactional
