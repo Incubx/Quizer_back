@@ -1,6 +1,8 @@
 package com.example.quizer_back.Model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "user")

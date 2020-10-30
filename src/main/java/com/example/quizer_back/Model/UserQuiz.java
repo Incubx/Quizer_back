@@ -6,15 +6,16 @@ import javax.persistence.*;
 @Table(name = "user_quiz")
 public class UserQuiz {
 
-    @EmbeddedId
-    private UserQuizId id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("userId")
+    @JoinColumn(name = "userId")
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("quizId")
+    @JoinColumn(name = "quizId")
     private Quiz quiz;
 
     @Column(name = "rating")
@@ -26,7 +27,38 @@ public class UserQuiz {
     public UserQuiz(User user, Quiz quiz, int rating) {
         this.user = user;
         this.quiz = quiz;
-        id = new UserQuizId(user.getId(),quiz.getId());
+        this.rating = rating;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public Quiz getQuiz() {
+        return quiz;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setQuiz(Quiz quiz) {
+        this.quiz = quiz;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setRating(int rating) {
         this.rating = rating;
     }
 }

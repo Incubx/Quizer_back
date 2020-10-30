@@ -2,6 +2,7 @@ package com.example.quizer_back.Controller;
 
 import com.example.quizer_back.Model.Quiz;
 import com.example.quizer_back.Model.User;
+import com.example.quizer_back.Service.QuizService;
 import com.example.quizer_back.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,12 @@ import java.util.NoSuchElementException;
 public class UserRESTController {
 
     private UserService userService;
+    private QuizService quizService;
+
+    @Autowired
+    public void setQuizService(QuizService quizService) {
+        this.quizService = quizService;
+    }
 
     @Autowired
     public void setUserService(UserService userService) {
@@ -39,9 +46,10 @@ public class UserRESTController {
         }
     }
 
-    @GetMapping("/finishQuiz")
-    public ResponseEntity<Integer> finishQuiz(@RequestBody User user, @RequestBody Quiz quiz) {
-        userService.finishQuiz(user,quiz);
-        return new ResponseEntity<>(0, HttpStatus.OK);
+    @PostMapping("/finishQuiz")
+    public ResponseEntity<Integer> finishQuiz(@RequestParam int userId, @RequestParam int quizId,@RequestParam int rating) {
+        System.out.println(userId+" "+ quizId+" "+rating);
+        userService.finishQuiz(userService.getUserById(userId), quizService.getQuizById(quizId),rating);
+        return new ResponseEntity<>(1, HttpStatus.OK);
     }
 }

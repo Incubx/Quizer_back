@@ -45,7 +45,6 @@ public class UserService {
 
     @Transactional
     public void saveUser(User user){
-
         userRepository.save(user);
     }
 
@@ -62,8 +61,8 @@ public class UserService {
     }
 
     @Transactional
-    public void finishQuiz(User user, Quiz quiz){
-        userQuizRepository.save(new UserQuiz(user,quiz,100));
+    public void finishQuiz(User user, Quiz quiz,int rating){
+        userQuizRepository.save(new UserQuiz(user,quiz,rating));
     }
 
 }

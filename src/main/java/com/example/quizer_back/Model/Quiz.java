@@ -12,12 +12,9 @@ import java.util.List;
 public class Quiz {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private int id;
 
-
     private String title;
-
 
     private int size;
 
@@ -28,12 +25,12 @@ public class Quiz {
         questions = new ArrayList<>();
     }
 
-    public Quiz(String title, int size, boolean paid) {
+    public Quiz(String title, int size) {
         this.title = title;
         this.size = size;
-
         questions = new ArrayList<>();
     }
+
 
     public void changeSize(int change){
         size+=change;
@@ -42,8 +39,6 @@ public class Quiz {
     public int getId() {
         return id;
     }
-
-
 
     public String getTitle() {
         return title;
@@ -57,7 +52,6 @@ public class Quiz {
         return questions;
     }
 
-
     public void setId(int id) {
         this.id = id;
     }
@@ -69,8 +63,6 @@ public class Quiz {
     public void setSize(int size) {
         this.size = size;
     }
-
-
 
     @NonNull
     @Override
