@@ -1,5 +1,6 @@
 package com.example.quizer_back.Controller;
 
+import com.example.quizer_back.Model.Quiz;
 import com.example.quizer_back.Model.User;
 import com.example.quizer_back.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.NoSuchElementException;
 
 //code x - OK
-//code -1 - already registered
-//code -2 - wrong password
-//code -3 - no such user
+//code -402 - wrong password
+//code -403 - no such user
 @RestController
 @RequestMapping("/rest/user")
 public class UserRESTController {
@@ -25,18 +25,6 @@ public class UserRESTController {
     }
 
 
-    @PostMapping("/register")
-    public ResponseEntity<Integer> registerUser(@RequestBody User user) {
-        try {
-            userService.getUserByEmail(user.getEmail());
-            return new ResponseEntity<>(-1, HttpStatus.OK);
-        } catch (NoSuchElementException e) {
-            userService.saveUser(user);
-            return new ResponseEntity<>(user.getId(), HttpStatus.OK);
-        }
-
-    }
-
     @PostMapping("/authorize")
     public ResponseEntity<Integer> authorizeUser(@RequestBody User user) {
         try {
@@ -44,11 +32,16 @@ public class UserRESTController {
             if (storedUser.getPassword().equals(user.getPassword())) {
                 System.out.println(storedUser);
                 return new ResponseEntity<>(storedUser.getId(), HttpStatus.OK);
-            }else return new ResponseEntity<>(-2,HttpStatus.OK);
+            } else return new ResponseEntity<>(-402, HttpStatus.OK);
 
         } catch (NoSuchElementException e) {
-            return new ResponseEntity<>(-3, HttpStatus.OK);
+            return new ResponseEntity<>(-403, HttpStatus.OK);
         }
+    }
 
+    @GetMapping("/finishQuiz")
+    public ResponseEntity<Integer> finishQuiz(@RequestBody User user, @RequestBody Quiz quiz) {
+        userService.finishQuiz(user,quiz);
+        return new ResponseEntity<>(0, HttpStatus.OK);
     }
 }

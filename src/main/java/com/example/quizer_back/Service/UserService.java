@@ -1,6 +1,9 @@
 package com.example.quizer_back.Service;
 
+import com.example.quizer_back.Model.Quiz;
 import com.example.quizer_back.Model.User;
+import com.example.quizer_back.Model.UserQuiz;
+import com.example.quizer_back.Repository.UserQuizRepository;
 import com.example.quizer_back.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,12 +16,17 @@ import java.util.Optional;
 public class UserService {
 
     private UserRepository userRepository;
+    private UserQuizRepository userQuizRepository;
 
     @Autowired
     public void setUserRepository(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
+    @Autowired
+    public void setUserQuizRepository(UserQuizRepository userQuizRepository) {
+        this.userQuizRepository = userQuizRepository;
+    }
 
     @Transactional
     public Iterable<User> getUserList(){
@@ -46,15 +54,16 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    @Transactional
-    public void updateUser(User user){
-        userRepository.save(user);
-    }
-
     public User getUserById(int id) {
         Optional<User> userOpt = userRepository.findById(id);
         if(userOpt.isPresent())
             return userOpt.get();
         else throw new NoSuchElementException();
     }
+
+    @Transactional
+    public void finishQuiz(User user, Quiz quiz){
+        userQuizRepository.save(new UserQuiz(user,quiz,100));
+    }
+
 }
