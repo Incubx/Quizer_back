@@ -50,6 +50,6 @@ public class UserRESTController {
     public ResponseEntity<Integer> finishQuiz(@RequestParam int userId, @RequestParam int quizId,@RequestParam int rating) {
         System.out.println(userId+" "+ quizId+" "+rating);
         userService.finishQuiz(userService.getUserById(userId), quizService.getQuizById(quizId),rating);
-        return new ResponseEntity<>(1, HttpStatus.OK);
+        return new ResponseEntity<>(0, HttpStatus.OK);
     }
 }

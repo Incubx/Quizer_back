@@ -29,40 +29,50 @@ public class UserService {
     }
 
     @Transactional
-    public Iterable<User> getUserList(){
+    public Iterable<User> getUserList() {
         return userRepository.findAll();
     }
 
 
     @Transactional
-    public User getUserByEmail(String email) throws NoSuchElementException{
+    public User getUserByEmail(String email) throws NoSuchElementException {
         Optional<User> userOpt = userRepository.getUserByEmail(email);
-        if(userOpt.isPresent())
+        if (userOpt.isPresent())
             return userOpt.get();
         else throw new NoSuchElementException();
 
     }
 
     @Transactional
-    public void saveUser(User user){
+    public void saveUser(User user) {
         userRepository.save(user);
     }
 
     @Transactional
-    public void deleteUserById(int id){
+    public void deleteUserById(int id) {
         userRepository.deleteById(id);
     }
 
     public User getUserById(int id) {
         Optional<User> userOpt = userRepository.findById(id);
-        if(userOpt.isPresent())
+        if (userOpt.isPresent())
             return userOpt.get();
         else throw new NoSuchElementException();
     }
 
     @Transactional
-    public void finishQuiz(User user, Quiz quiz,int rating){
-        userQuizRepository.save(new UserQuiz(user,quiz,rating));
+    public void finishQuiz(User user, Quiz quiz, int rating) {
+        Optional<UserQuiz> userQuizOpt = userQuizRepository.findByUserAndQuiz(user, quiz);
+        if (userQuizOpt.isPresent()) {
+
+            UserQuiz userQuiz = userQuizOpt.get();
+            int curRating = userQuiz.getRating();
+            if (curRating < rating) userQuiz.setRating(rating);
+            userQuizRepository.save(userQuiz);
+        } else {
+            userQuizRepository.save(new UserQuiz(user, quiz, rating));
+        }
+
     }
 
 }
