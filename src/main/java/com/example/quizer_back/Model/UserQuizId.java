@@ -1,11 +1,9 @@
 package com.example.quizer_back.Model;
 
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.util.Objects;
 
-@Embeddable
 public class UserQuizId implements Serializable {
     @Column(name = "userId")
     private int userId;
