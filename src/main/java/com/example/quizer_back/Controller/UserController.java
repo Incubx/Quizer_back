@@ -1,6 +1,7 @@
 package com.example.quizer_back.Controller;
 
 
+import com.example.quizer_back.Model.Quiz;
 import com.example.quizer_back.Model.User;
 import com.example.quizer_back.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.HashMap;
 import java.util.NoSuchElementException;
 
 
@@ -64,6 +66,20 @@ public class UserController {
     public ModelAndView deleteQuiz(@PathVariable int id){
         userService.deleteUserById(id);
         return new ModelAndView("redirect:/user/");
+    }
+
+    @GetMapping("rating/{id}")
+    public ModelAndView getUserRating(@PathVariable int id) {
+        ModelAndView modelAndView = new ModelAndView("userRatingPage");
+        try {
+            User user = userService.getUserById(id);
+           HashMap<Quiz,Integer> quizRating = userService.getUserRatingTable(user);
+           modelAndView.addObject("quizRating",quizRating);
+           modelAndView.addObject("user", user);
+           return modelAndView;
+        } catch (NoSuchElementException e) {
+            return modelAndView;
+        }
     }
 
 }

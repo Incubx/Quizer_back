@@ -9,8 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class UserService {
@@ -35,8 +34,8 @@ public class UserService {
 
 
     @Transactional
-    public User getUserByEmail(String email) throws NoSuchElementException {
-        Optional<User> userOpt = userRepository.getUserByEmail(email);
+    public User getUserByNickname(String nickname) throws NoSuchElementException {
+        Optional<User> userOpt = userRepository.getUserByNickname(nickname);
         if (userOpt.isPresent())
             return userOpt.get();
         else throw new NoSuchElementException();
@@ -75,4 +74,13 @@ public class UserService {
 
     }
 
+    public HashMap<Quiz,Integer> getUserRatingTable(User user) {
+       List<UserQuiz> userQuizList = userQuizRepository.findByUser(user);
+        HashMap<Quiz,Integer> quizRatingMap = new LinkedHashMap<>();
+        for(UserQuiz userQuiz:userQuizList){
+            quizRatingMap.put(userQuiz.getQuiz(),userQuiz.getRating());
+        }
+        return quizRatingMap;
+
+    }
 }

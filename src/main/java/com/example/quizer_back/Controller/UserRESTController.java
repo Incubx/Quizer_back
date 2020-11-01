@@ -1,6 +1,5 @@
 package com.example.quizer_back.Controller;
 
-import com.example.quizer_back.Model.Quiz;
 import com.example.quizer_back.Model.User;
 import com.example.quizer_back.Service.QuizService;
 import com.example.quizer_back.Service.UserService;
@@ -35,7 +34,7 @@ public class UserRESTController {
     @PostMapping("/authorize")
     public ResponseEntity<Integer> authorizeUser(@RequestBody User user) {
         try {
-            User storedUser = userService.getUserByEmail(user.getEmail());
+            User storedUser = userService.getUserByNickname(user.getNickname());
             if (storedUser.getPassword().equals(user.getPassword())) {
                 System.out.println(storedUser);
                 return new ResponseEntity<>(storedUser.getId(), HttpStatus.OK);
