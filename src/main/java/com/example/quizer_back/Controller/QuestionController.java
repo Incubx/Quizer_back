@@ -30,7 +30,6 @@ public class QuestionController {
 
     @PostMapping("/add")
     public ModelAndView saveQuestion(@ModelAttribute Question question){
-        System.out.println(question);
         quizService.addQuestion(question);
         return new ModelAndView(redirectionToQuiz(question));
     }

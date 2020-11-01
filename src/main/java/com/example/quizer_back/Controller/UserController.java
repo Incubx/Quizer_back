@@ -28,7 +28,7 @@ public class UserController {
     }
 
     @GetMapping("/")
-    public ModelAndView getUserList(){
+    public ModelAndView getUserList() {
         ModelAndView modelAndView = new ModelAndView("userListPage");
         Iterable<User> userList = userService.getUserList();
         modelAndView.addObject("userList", userList);
@@ -44,7 +44,7 @@ public class UserController {
     }
 
     @GetMapping("/add")
-    public ModelAndView addQuizPage(Model model){
+    public ModelAndView addQuizPage(Model model) {
         model.addAttribute(new User());
         return new ModelAndView("addUserPage");
     }
@@ -63,7 +63,7 @@ public class UserController {
 
 
     @GetMapping("/delete/{id}")
-    public ModelAndView deleteQuiz(@PathVariable int id){
+    public ModelAndView deleteQuiz(@PathVariable int id) {
         userService.deleteUserById(id);
         return new ModelAndView("redirect:/user/");
     }
@@ -73,10 +73,10 @@ public class UserController {
         ModelAndView modelAndView = new ModelAndView("userRatingPage");
         try {
             User user = userService.getUserById(id);
-           HashMap<Quiz,Integer> quizRating = userService.getUserRatingTable(user);
-           modelAndView.addObject("quizRating",quizRating);
-           modelAndView.addObject("user", user);
-           return modelAndView;
+            HashMap<Quiz, Integer> quizRating = userService.getUserRatingTable(user);
+            modelAndView.addObject("quizRating", quizRating);
+            modelAndView.addObject("user", user);
+            return modelAndView;
         } catch (NoSuchElementException e) {
             return modelAndView;
         }
