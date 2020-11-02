@@ -15,7 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 
@@ -49,10 +49,10 @@ public class QuizRESTController {
     @GetMapping("/user/{userId}")
     public ResponseEntity<String> getCompletedQuizList(@PathVariable int userId) {
         User user = userService.getUserById(userId);
-        HashMap<Quiz,Boolean> quizCompletedMap = quizService.getUserQuizMap(user);
-        System.out.println(quizCompletedMap);
+        List<Quiz> completedQuizList = quizService.getUserQuizList(user);
         //exclude question list from JSON
-        String json = configureJSON(quizCompletedMap);
+        System.out.println(completedQuizList);
+        String json = configureJSON(completedQuizList);
         if (json != null) {
             return new ResponseEntity<>(json, HttpStatus.OK);
         } else return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
@@ -60,11 +60,10 @@ public class QuizRESTController {
     }
 
 
-    private String configureJSON(HashMap<Quiz,Boolean> quizList) {
+    private String configureJSON(List<Quiz> quizList) {
         ObjectMapper mapper = new ObjectMapper().registerModule(new JsonViewModule());
-        System.out.println(quizList);
         try {
-            return mapper.writeValueAsString(JsonView.with(quizList).onClass(Quiz.class, Match.match().exclude("questions")));
+            return mapper.writeValueAsString(JsonView.with(quizList).onClass(Quiz.class, Match.match().exclude("questions").include("isCompleted")));
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             return null;

@@ -47,15 +47,13 @@ public class QuizService {
     }
 
     @Transactional
-    public HashMap<Quiz, Boolean> getUserQuizMap(User user) {
+    public List<Quiz> getUserQuizList(User user) {
         List<Quiz> quizList = (List<Quiz>) quizRepository.findAll();
-        HashMap<Quiz, Boolean> quizCompletedMap = new LinkedHashMap<>();
         for (Quiz quiz : quizList) {
             Optional<UserQuiz> userQuiz = userQuizRepository.findByUserAndQuiz(user, quiz);
-            quizCompletedMap.put(quiz, userQuiz.isPresent() && userQuiz.get().getRating() > 50);
+            quiz.setCompleted(userQuiz.isPresent() && userQuiz.get().getRating() > 50);
         }
-
-        return quizCompletedMap;
+        return quizList;
     }
 
     @Transactional
