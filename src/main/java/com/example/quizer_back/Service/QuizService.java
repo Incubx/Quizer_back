@@ -48,7 +48,7 @@ public class QuizService {
 
     @Transactional
     public List<Quiz> getUserQuizList(User user) {
-        List<Quiz> quizList = (List<Quiz>) quizRepository.findAll();
+        List<Quiz> quizList = getNotEmptyQuizList();
         for (Quiz quiz : quizList) {
             Optional<UserQuiz> userQuiz = userQuizRepository.findByUserAndQuiz(user, quiz);
             quiz.setCompleted(userQuiz.isPresent() && userQuiz.get().getRating() > 50);
