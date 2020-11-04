@@ -89,7 +89,7 @@ public class QuizService {
             answer.setQuestion(question);
         }
         questionRepository.save(question);
-        changeQuizSize(question, 1);
+        //changeQuizSize(question, 1);
     }
 
     @Transactional
@@ -99,8 +99,22 @@ public class QuizService {
 
     @Transactional
     public void deleteQuestion(Question question) {
-        changeQuizSize(question, -1);
+        //changeQuizSize(question, -1);
         questionRepository.deleteById(question.getId());
+    }
+
+    @Transactional
+    public Quiz getQuizWithRandomQuestions(int id){
+
+        Quiz quiz = getQuizById(id);
+        List<Question> questionList =quiz.getQuestions();
+        List<Question> randomQuestions = new ArrayList<>();
+        Collections.shuffle(questionList);
+        for(int i=0;i<quiz.getSize()&&i<questionList.size();i++){
+            randomQuestions.add(questionList.get(i));
+        }
+        quiz.setQuestions(randomQuestions);
+        return quiz;
     }
 
     private void changeQuizSize(Question question, int changeNumber) {
@@ -108,4 +122,6 @@ public class QuizService {
         quiz.changeSize(changeNumber);
         quizRepository.save(quiz);
     }
+
+
 }

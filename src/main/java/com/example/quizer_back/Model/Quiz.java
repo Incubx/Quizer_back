@@ -23,7 +23,7 @@ public class Quiz {
     private int size;
 
     @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private final List<Question> questions;
+    private List<Question> questions;
 
     @Transient
     @JsonProperty("isCompleted")
@@ -75,6 +75,10 @@ public class Quiz {
 
     public List<Question> getQuestions() {
         return questions;
+    }
+
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
     }
 
     public void setId(int id) {

@@ -72,7 +72,8 @@ public class QuizRESTController {
     @GetMapping(value = "/{id}")
     public ResponseEntity<Quiz> getQuizById(@PathVariable int id) {
         try {
-            Quiz quiz = quizService.getQuizById(id);
+            //Quiz quiz =quizService.getQuizById(id);
+            Quiz quiz = quizService.getQuizWithRandomQuestions(id);
             return new ResponseEntity<>(quiz, HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);

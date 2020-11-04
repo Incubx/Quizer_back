@@ -10,9 +10,10 @@
 <form method="post" th:action="@{/quiz/save}" th:object="${quiz}">
 
     <input type="hidden" th:if="${quiz.id!=0}" th:field="*{id}">
-    <input type="hidden" th:field="*{size}">
-    <label for="title">Title:</label>
+    <label for="title">Title: </label>
     <input id="title" type="text" th:field="*{title}">
+    <label for="size">Number of questions: </label>
+    <input id="size" type="number" th:field="*{size}">
     <br/>
     <br/>
     <input type="submit" value="Save">
