@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Category List</title>
+</head>
+<body>
+<h2>Category List</h2>
+<br>
+<a th:href="@{/}">Back</a>
+<br/>
+<table border="1">
+    <tr>
+        <th>№</th>
+        <th>Name</th>
+        <th>Delete</th>
+    </tr>
+    <tr th:each="category,state : ${categoryList}">
+        <td th:text="${state.index+1}">INDEX</td>
+        <td th:text="${category.name}">TITLE</td>
+        <td><a th:href="'/category/delete/'+${category.id}">Delete</a></td>
+    </tr>
+    <tr>
+        <td>*</td>
+        <form method="post" th:action="@{/category/save}" th:object="${newCategory}">
+            <td><input id="name" type="text" th:field="*{name}"></td>
+            <td><input type="submit" value="Add category"></td>
+        </form>
+    </tr>
+
+</table>
+</body>
+</html>
