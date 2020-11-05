@@ -31,6 +31,8 @@ public class Quiz {
     private boolean isCompleted;
 
 
+
+
     public Quiz() {
         questions = new ArrayList<>();
     }
@@ -52,6 +54,7 @@ public class Quiz {
     public void changeSize(int change) {
         size += change;
     }
+
 
     public int getId() {
         return id;
@@ -76,6 +79,7 @@ public class Quiz {
     public List<Question> getQuestions() {
         return questions;
     }
+
 
     public void setQuestions(List<Question> questions) {
         this.questions = questions;

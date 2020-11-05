@@ -21,6 +21,9 @@ public class UserQuiz {
     @Column(name = "rating")
     private int rating;
 
+    @Column(name = "attempts")
+    private int attempts;
+
     public UserQuiz() {
     }
 
@@ -28,6 +31,7 @@ public class UserQuiz {
         this.user = user;
         this.quiz = quiz;
         this.rating = rating;
+        attempts = 1;
     }
 
     public User getUser() {
@@ -50,6 +54,7 @@ public class UserQuiz {
         this.quiz = quiz;
     }
 
+
     public int getId() {
         return id;
     }
@@ -60,5 +65,13 @@ public class UserQuiz {
 
     public void setRating(int rating) {
         this.rating = rating;
+    }
+
+    public void increaseAttempt() {
+        attempts++;
+    }
+
+    public int getAttempts() {
+        return attempts;
     }
 }

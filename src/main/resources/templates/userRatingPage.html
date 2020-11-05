@@ -10,21 +10,24 @@
 
 <h2 th:text="${user.nickname}">NICKNAME</h2>
 <br/>
-<div th:if="${quizRating.size()>0}">
+<div th:if="${userQuizList.size()>0}">
 <table border="1">
     <tr>
         <th>№</th>
         <th>Quiz</th>
         <th>Rating</th>
+        <th>Attempts</th>
+
     </tr>
-    <tr th:each="quizRatingEntry,state : ${quizRating}">
+    <tr th:each="userQuiz,state : ${userQuizList}">
         <td th:text="${state.index+1}">INDEX</td>
-        <td th:text="${quizRatingEntry.key.title}"> >QUIZ</td>
-        <td th:text="${quizRatingEntry.value}">RATING</td>
+        <td th:text="${userQuiz.quiz.title}"> >QUIZ</td>
+        <td th:text="${userQuiz.rating}">RATING</td>
+        <td th:text="${userQuiz.attempts}">RATING</td>
     </tr>
 </table>
 </div>
-<div th:if="${quizRating.size()==0}">
+<div th:if="${userQuizList.size()==0}">
     <h2>No completed quizzes</h2>
 </div>
 

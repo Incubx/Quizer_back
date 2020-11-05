@@ -63,8 +63,8 @@ public class UserService {
     public void finishQuiz(User user, Quiz quiz, int rating) {
         Optional<UserQuiz> userQuizOpt = userQuizRepository.findByUserAndQuiz(user, quiz);
         if (userQuizOpt.isPresent()) {
-
             UserQuiz userQuiz = userQuizOpt.get();
+            userQuiz.increaseAttempt();
             int curRating = userQuiz.getRating();
             if (curRating < rating) userQuiz.setRating(rating);
             userQuizRepository.save(userQuiz);
@@ -74,13 +74,7 @@ public class UserService {
 
     }
 
-    public HashMap<Quiz,Integer> getUserRatingTable(User user) {
-       List<UserQuiz> userQuizList = userQuizRepository.findByUser(user);
-        HashMap<Quiz,Integer> quizRatingMap = new LinkedHashMap<>();
-        for(UserQuiz userQuiz:userQuizList){
-            quizRatingMap.put(userQuiz.getQuiz(),userQuiz.getRating());
-        }
-        return quizRatingMap;
-
+    public List<UserQuiz> getUserRatingTable(User user) {
+        return userQuizRepository.findByUser(user);
     }
 }

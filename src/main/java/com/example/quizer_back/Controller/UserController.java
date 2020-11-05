@@ -3,6 +3,7 @@ package com.example.quizer_back.Controller;
 
 import com.example.quizer_back.Model.Quiz;
 import com.example.quizer_back.Model.User;
+import com.example.quizer_back.Model.UserQuiz;
 import com.example.quizer_back.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 
@@ -73,8 +75,8 @@ public class UserController {
         ModelAndView modelAndView = new ModelAndView("userRatingPage");
         try {
             User user = userService.getUserById(id);
-            HashMap<Quiz, Integer> quizRating = userService.getUserRatingTable(user);
-            modelAndView.addObject("quizRating", quizRating);
+            List<UserQuiz> userQuizList = userService.getUserRatingTable(user);
+            modelAndView.addObject("userQuizList", userQuizList);
             modelAndView.addObject("user", user);
             return modelAndView;
         } catch (NoSuchElementException e) {
