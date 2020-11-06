@@ -1,7 +1,6 @@
 package com.example.quizer_back.Model;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.lang.NonNull;
 
@@ -27,10 +26,11 @@ public class Quiz {
 
     @Transient
     @JsonProperty("isCompleted")
-    @JsonInclude
     private boolean isCompleted;
 
-
+    @ManyToOne
+    @JoinColumn(name = "categoryId")
+    private Category category;
 
 
     public Quiz() {
@@ -50,11 +50,13 @@ public class Quiz {
         this.questions = questions;
     }
 
-
-    public void changeSize(int change) {
-        size += change;
+    public Category getCategory() {
+        return category;
     }
 
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 
     public int getId() {
         return id;
@@ -62,10 +64,6 @@ public class Quiz {
 
     public String getTitle() {
         return title;
-    }
-
-    public boolean isCompleted() {
-        return isCompleted;
     }
 
     public void setCompleted(boolean completed) {

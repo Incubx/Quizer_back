@@ -1,5 +1,6 @@
 package com.example.quizer_back.Controller;
 
+import com.example.quizer_back.Model.Category;
 import com.example.quizer_back.Model.Quiz;
 
 import com.example.quizer_back.Model.User;
@@ -36,20 +37,14 @@ public class QuizRESTController {
         this.userService = userService;
     }
 
-    /*@GetMapping("/")
-    public ResponseEntity<String> getQuizList() {
-        List<Quiz> quizList = quizService.getNotEmptyQuizList();
-        //exclude question list from JSON
-        String json = configureJSON(quizList);
-        if (json != null) {
-            return new ResponseEntity<>(json, HttpStatus.OK);
-        } else return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-    }*/
 
     @GetMapping("/user/{userId}")
-    public ResponseEntity<String> getCompletedQuizList(@PathVariable int userId) {
+    public ResponseEntity<String> getCompletedQuizList(@PathVariable int userId, @RequestParam("categoryName") String categoryName) {
         User user = userService.getUserById(userId);
         List<Quiz> completedQuizList = quizService.getUserQuizList(user);
+        Category category = new Category(categoryName);
+        if (!categoryName.equals("No category"))
+            completedQuizList.removeIf(quiz -> !quiz.getCategory().equals(category));
         //exclude question list from JSON
         System.out.println(completedQuizList);
         String json = configureJSON(completedQuizList);
@@ -63,16 +58,16 @@ public class QuizRESTController {
     private String configureJSON(List<Quiz> quizList) {
         ObjectMapper mapper = new ObjectMapper().registerModule(new JsonViewModule());
         try {
-            return mapper.writeValueAsString(JsonView.with(quizList).onClass(Quiz.class, Match.match().exclude("questions").include("isCompleted")));
+            return mapper.writeValueAsString(JsonView.with(quizList).onClass(Quiz.class, Match.match().exclude("questions")));
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             return null;
         }
     }
+
     @GetMapping(value = "/{id}")
     public ResponseEntity<Quiz> getQuizById(@PathVariable int id) {
         try {
-            //Quiz quiz =quizService.getQuizById(id);
             Quiz quiz = quizService.getQuizWithRandomQuestions(id);
             return new ResponseEntity<>(quiz, HttpStatus.OK);
         } catch (NoSuchElementException e) {

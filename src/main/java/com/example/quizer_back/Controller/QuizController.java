@@ -1,5 +1,6 @@
 package com.example.quizer_back.Controller;
 
+import com.example.quizer_back.Model.Category;
 import com.example.quizer_back.Model.Quiz;
 import com.example.quizer_back.Service.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Controller
@@ -46,6 +48,8 @@ public class QuizController {
         Quiz quiz = new Quiz();
         ModelAndView modelAndView = new ModelAndView("saveQuizPage");
         modelAndView.addObject(quiz);
+        List<Category> categoryList = quizService.getCategoryList();
+        modelAndView.addObject("categoryList",categoryList);
         return modelAndView;
     }
 
@@ -70,6 +74,8 @@ public class QuizController {
         try {
             Quiz quiz = quizService.getQuizById(id);
             modelAndView.addObject("quiz", quiz);
+            List<Category> categoryList = quizService.getCategoryList();
+            modelAndView.addObject("categoryList",categoryList);
             return modelAndView;
         } catch (NoSuchElementException e) {
             return modelAndView;

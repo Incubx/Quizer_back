@@ -14,7 +14,11 @@
     <input id="title" type="text" th:field="*{title}">
     <label for="size">Number of questions: </label>
     <input id="size" type="number" th:field="*{size}">
-    <br/>
+    <label for="category">Quiz category: </label>
+    <select id="category" th:field="*{category}">
+        <option th:value="null">Без категории</option>
+        <option th:each="category : ${categoryList}" th:value="${category.id}" th:text="${category.name}"></option>
+    </select>
     <br/>
     <input type="submit" value="Save">
 </form>

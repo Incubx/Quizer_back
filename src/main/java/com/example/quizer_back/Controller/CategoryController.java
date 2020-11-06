@@ -9,7 +9,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
-//TODO Category controller methods
 @Controller
 @RequestMapping("/category")
 public class CategoryController {
