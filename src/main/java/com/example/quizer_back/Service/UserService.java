@@ -52,6 +52,7 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
+    @Transactional
     public User getUserById(int id) {
         Optional<User> userOpt = userRepository.findById(id);
         if (userOpt.isPresent())
