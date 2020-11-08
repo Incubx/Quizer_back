@@ -34,7 +34,7 @@
 <body>
 
 
-<form method="post" th:with="addOrEdit= ${question.id!=0} ? 'edit' : 'add'"  th:action="@{'/question/'+${addOrEdit}}" th:object="${question}">
+<form method="post" th:action="@{'/question/save/'}" th:object="${question}">
 
 
     <input type="hidden"  th:field="*{id}" th:value="${question.id}">

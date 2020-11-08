@@ -1,7 +1,6 @@
 package com.example.quizer_back.Controller;
 
 
-import com.example.quizer_back.Model.Quiz;
 import com.example.quizer_back.Model.User;
 import com.example.quizer_back.Model.UserQuiz;
 import com.example.quizer_back.Service.UserService;
@@ -11,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.NoSuchElementException;
 

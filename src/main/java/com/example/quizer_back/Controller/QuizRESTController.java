@@ -42,6 +42,7 @@ public class QuizRESTController {
     public ResponseEntity<String> getCompletedQuizList(@PathVariable int userId, @RequestParam("categoryName") String categoryName) {
         User user = userService.getUserById(userId);
         List<Quiz> completedQuizList = quizService.getUserQuizList(user);
+        System.out.println(completedQuizList);
         Category category = new Category(categoryName);
         if (!categoryName.equals("No category"))
             completedQuizList.removeIf(quiz -> !quiz.getCategory().equals(category));
@@ -69,6 +70,7 @@ public class QuizRESTController {
     public ResponseEntity<Quiz> getQuizById(@PathVariable int id) {
         try {
             Quiz quiz = quizService.getQuizWithRandomQuestions(id);
+            System.out.println(quiz);
             return new ResponseEntity<>(quiz, HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);

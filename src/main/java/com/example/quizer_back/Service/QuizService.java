@@ -107,15 +107,10 @@ public class QuizService {
     }
 
     @Transactional
-    public void addQuestion(Question question) {
+    public void saveQuestion(Question question) {
         for (Answer answer : question.getAnswers()) {
             answer.setQuestion(question);
         }
-        questionRepository.save(question);
-    }
-
-    @Transactional
-    public void editQuestion(Question question) {
         questionRepository.save(question);
     }
 

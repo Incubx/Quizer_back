@@ -102,6 +102,7 @@ public class Quiz {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", size=" + size +
+                ", category="+category.getName()+
                 '}';
     }
 }
