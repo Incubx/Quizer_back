@@ -29,7 +29,7 @@ public class Quiz {
     @JsonProperty("isCompleted")
     private boolean isCompleted;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "categoryId")
     @JsonIgnore
     private Category category;
