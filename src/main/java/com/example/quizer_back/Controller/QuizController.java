@@ -55,7 +55,6 @@ public class QuizController {
 
     @PostMapping("/save")
     public ModelAndView addQuiz(@ModelAttribute Quiz quiz) {
-        System.out.println(quiz);
         ModelAndView modelAndView = new ModelAndView("redirect:/quiz/");
         quizService.saveQuiz(quiz);
         return modelAndView;

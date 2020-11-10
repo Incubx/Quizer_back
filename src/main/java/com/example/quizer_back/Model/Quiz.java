@@ -1,6 +1,7 @@
 package com.example.quizer_back.Model;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.lang.NonNull;
 
@@ -30,6 +31,7 @@ public class Quiz {
 
     @ManyToOne
     @JoinColumn(name = "categoryId")
+    @JsonIgnore
     private Category category;
 
 

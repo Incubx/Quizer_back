@@ -42,12 +42,12 @@ public class QuizRESTController {
     public ResponseEntity<String> getCompletedQuizList(@PathVariable int userId, @RequestParam("categoryName") String categoryName) {
         User user = userService.getUserById(userId);
         List<Quiz> completedQuizList = quizService.getUserQuizList(user);
-        System.out.println(completedQuizList);
         Category category = new Category(categoryName);
         if (!categoryName.equals("No category"))
-            completedQuizList.removeIf(quiz -> !quiz.getCategory().equals(category));
+            completedQuizList.removeIf(
+                    quiz -> quiz.getCategory() == null ||
+                            !quiz.getCategory().equals(category));
         //exclude question list from JSON
-        System.out.println(completedQuizList);
         String json = configureJSON(completedQuizList);
         if (json != null) {
             return new ResponseEntity<>(json, HttpStatus.OK);
