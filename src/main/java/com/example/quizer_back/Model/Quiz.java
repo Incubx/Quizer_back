@@ -25,6 +25,8 @@ public class Quiz {
     @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Question> questions;
 
+    private int timerTime;
+
     @Transient
     @JsonProperty("isCompleted")
     private boolean isCompleted;
@@ -50,6 +52,14 @@ public class Quiz {
         this.title = title;
         this.size = size;
         this.questions = questions;
+    }
+
+    public int getTimerTime() {
+        return timerTime;
+    }
+
+    public void setTimerTime(int timer) {
+        this.timerTime = timer;
     }
 
     public Category getCategory() {
@@ -104,7 +114,6 @@ public class Quiz {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", size=" + size +
-                ", category="+category.getName()+
                 '}';
     }
 }

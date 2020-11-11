@@ -67,6 +67,7 @@ public class QuizController {
         return new ModelAndView("redirect:/quiz/");
     }
 
+
     @GetMapping("/edit/{id}")
     public ModelAndView editQuizPage(@PathVariable int id) {
         ModelAndView modelAndView = new ModelAndView("saveQuizPage");
@@ -80,5 +81,4 @@ public class QuizController {
             return modelAndView;
         }
     }
-
 }

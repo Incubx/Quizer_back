@@ -20,6 +20,8 @@
         <option th:each="category : ${categoryList}" th:value="${category.id}" th:text="${category.name}"></option>
     </select>
     <br/>
+    <label for="timerTime">Minutes to complete quiz: </label>
+    <input id="timerTime" type="number" th:field="*{timerTime}">
     <input type="submit" value="Save">
 </form>
 
