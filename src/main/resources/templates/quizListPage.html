@@ -13,6 +13,7 @@
     <tr>
         <th>№</th>
         <th>Title</th>
+        <th>Category</th>
         <th>Size</th>
         <th>Time to finish (minutes)</th>
         <th>Edit</th>
@@ -21,13 +22,15 @@
     <tr th:each="quiz,state : ${quizList}">
         <td th:text="${state.index+1}">INDEX</td>
         <td><a th:href="'/quiz/'+${quiz.id}" th:text="${quiz.title}">TITLE</a></td>
+        <td th:if="${quiz.category!=null}" th:text="${quiz.category.getName()}">Category</td>
+        <td th:if="${quiz.category==null}" >Без категории</td>
         <td th:text="${quiz.size}">SIZE</td>
         <td th:text="${quiz.timerTime}">TIME</td>
         <td ><a th:href="'/quiz/edit/'+${quiz.id}">Edit</a> </td>
         <td ><a th:href="'/quiz/delete/'+${quiz.id}">Delete</a> </td>
     </tr>
     <tr>
-        <td th:colspan="6"><a href="/quiz/add"> Add Quiz</a></td>
+        <td th:colspan="7"><a href="/quiz/add"> Add Quiz</a></td>
     </tr>
 </table>
 </body>

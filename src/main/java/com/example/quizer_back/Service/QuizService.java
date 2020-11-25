@@ -67,6 +67,11 @@ public class QuizService {
     }
 
     @Transactional
+    public List<Quiz> getQuizListByCategory(Category category) {
+        return quizRepository.getQuizzesByCategory(category);
+    }
+
+    @Transactional
     public Quiz getQuizWithRandomQuestions(int id) {
 
         Quiz quiz = getQuizById(id);
@@ -134,5 +139,9 @@ public class QuizService {
     @Transactional
     public void deleteCategoryById(int id) {
         categoryRepository.deleteById(id);
+    }
+
+    public Category getCategoryById(int id) {
+        return categoryRepository.findById(id).get();
     }
 }

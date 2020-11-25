@@ -17,13 +17,27 @@
     </tr>
     <tr th:each="category,state : ${categoryList}">
         <td th:text="${state.index+1}">INDEX</td>
-        <td th:text="${category.name}">TITLE</td>
-        <td><a th:href="'/category/delete/'+${category.id}">Delete</a></td>
+        <td colspan="2" th:if="${error == category.id}">
+            Категория
+            <div style="display:inline" th:text="${category.name}"></div>
+            содержит тесты.
+            <br>
+            Вы уверены, что хотите удалить категорию?
+            <br>
+            При удалении все тесты, привязанные к данной
+            категории, будут помечены как без категории
+            <br>
+            <a th:href="'/category/forceDelete/'+${category.id}">Да</a>
+            <a href="/category/">Нет</a>
+        </td>
+        <td th:if="${error != category.id}"><a th:href="'/category/'+${category.id}"
+                                               th:text="${category.name}">TITLE</a></td>
+        <td th:if="${error != category.id}"><a th:href="'/category/delete/'+${category.id}">Delete</a></td>
     </tr>
     <tr>
         <td>*</td>
         <form method="post" th:action="@{/category/save}" th:object="${newCategory}">
-            <td><input id="name" type="text" th:field="*{name}"></td>
+            <td><input style="width:100%" id="name" type="text" th:field="*{name}"></td>
             <td><input type="submit" value="Add category"></td>
         </form>
     </tr>

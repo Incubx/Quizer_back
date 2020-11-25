@@ -43,7 +43,7 @@ public class QuizRESTController {
         User user = userService.getUserById(userId);
         List<Quiz> completedQuizList = quizService.getUserQuizList(user);
         Category category = new Category(categoryName);
-        if (!categoryName.equals("No category"))
+        if (!categoryName.equals("Без категории"))
             completedQuizList.removeIf(
                     quiz -> quiz.getCategory() == null ||
                             !quiz.getCategory().equals(category));
