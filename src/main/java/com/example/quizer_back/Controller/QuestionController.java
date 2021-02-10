@@ -28,12 +28,10 @@ public class QuestionController {
         return modelAndView;
     }
 
-    @PostMapping("/add")
+    @PostMapping("/save")
     public ModelAndView saveQuestion(@ModelAttribute Question question){
-        System.out.println(question);
-        quizService.addQuestion(question);
+        quizService.saveQuestion(question);
         return new ModelAndView(redirectionToQuiz(question));
-
     }
 
     @GetMapping("/delete/{id}")
@@ -49,13 +47,6 @@ public class QuestionController {
         Question question = quizService.getQuestionById(id);
         model.addAttribute("question",question);
         return new ModelAndView("addQuestionPage");
-    }
-
-    @PostMapping("/edit")
-    public ModelAndView editQuestion(@ModelAttribute Question question){
-        System.out.println(question);
-        quizService.editQuestion(question);
-        return new ModelAndView(redirectionToQuiz(question));
     }
 
     private String redirectionToQuiz(Question question){

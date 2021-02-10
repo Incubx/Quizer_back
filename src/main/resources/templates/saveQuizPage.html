@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:if="${quiz.id!=0}">Edit Page</title>
+    <title th:if="${quiz.id==0}">Add Page</title>
+</head>
+<body>
+
+<form method="post" th:action="@{/quiz/save}" th:object="${quiz}">
+
+    <input type="hidden" th:if="${quiz.id!=0}" th:field="*{id}">
+    <label for="title">Title: </label>
+    <input id="title" type="text" th:field="*{title}">
+    <label for="size">Number of questions: </label>
+    <input id="size" type="number" th:field="*{size}">
+    <label for="category">Quiz category: </label>
+    <select id="category" th:field="*{category}">
+        <option th:value="null">Без категории</option>
+        <option th:each="category : ${categoryList}" th:value="${category.id}" th:text="${category.name}"></option>
+    </select>
+    <br/>
+    <label for="timerTime">Minutes to complete quiz: </label>
+    <input id="timerTime" type="number" th:field="*{timerTime}">
+    <input type="submit" value="Save">
+</form>
+
+
+</body>
+</html>

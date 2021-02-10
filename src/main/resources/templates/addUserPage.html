@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add User Page</title>
+</head>
+<body>
+
+<form method="post" th:action="@{/user/add}" th:object="${user}">
+
+    <input type="hidden" th:if="${user.id!=0}" th:value="${user.id}" th:field="*{id}">
+    <label for="nickname">Nickname:</label>
+    <input id="nickname" type="text" th:field="*{nickname}">
+    <br/>
+    <label for="password">password:</label>
+    <input id="password" type="text" th:field="*{password}">
+    <br/>
+    <input type="submit" value="Save">
+</form>
+
+</body>
+</html>

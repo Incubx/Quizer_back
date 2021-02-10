@@ -1,5 +1,8 @@
 package com.example.quizer_back.Model;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
@@ -9,49 +12,74 @@ import java.util.List;
 
 @Entity
 @Table(name = "quiz")
+@JsonAutoDetect(fieldVisibility= JsonAutoDetect.Visibility.ANY)
 public class Quiz {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private int id;
 
-    @Column(name = "title")
     private String title;
 
-    @Column(name = "size")
     private int size;
 
-    @Column(name = "paid")
-    private boolean paid;
-
     @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private final List<Question> questions;
+    private List<Question> questions;
+
+    private int timerTime;
+
+    @Transient
+    @JsonProperty("isCompleted")
+    private boolean isCompleted;
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "categoryId")
+    @JsonIgnore
+    private Category category;
+
 
     public Quiz() {
         questions = new ArrayList<>();
     }
 
-    public Quiz(String title, int size, boolean paid) {
+    public Quiz(String title, int size) {
         this.title = title;
         this.size = size;
-        this.paid = paid;
         questions = new ArrayList<>();
     }
 
-    public void changeSize(int change){
-        size+=change;
+    public Quiz(int id, String title, int size, List<Question> questions) {
+        this.id = id;
+        this.title = title;
+        this.size = size;
+        this.questions = questions;
+    }
+
+    public int getTimerTime() {
+        return timerTime;
+    }
+
+    public void setTimerTime(int timer) {
+        this.timerTime = timer;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public int getId() {
         return id;
     }
 
-    public boolean isPaid() {
-        return paid;
-    }
-
     public String getTitle() {
         return title;
+    }
+
+    public void setCompleted(boolean completed) {
+        isCompleted = completed;
     }
 
     public int getSize() {
@@ -62,6 +90,10 @@ public class Quiz {
         return questions;
     }
 
+
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
+    }
 
     public void setId(int id) {
         this.id = id;
@@ -75,10 +107,6 @@ public class Quiz {
         this.size = size;
     }
 
-    public void setPaid(boolean paid) {
-        this.paid = paid;
-    }
-
     @NonNull
     @Override
     public String toString() {
@@ -86,7 +114,6 @@ public class Quiz {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", size=" + size +
-                ", free=" + paid +
                 '}';
     }
 }

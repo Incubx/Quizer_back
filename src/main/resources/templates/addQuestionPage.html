@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" , xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Add question</title>
@@ -34,10 +34,10 @@
 <body>
 
 
-<form method="post" th:with="addOrEdit= ${question.id!=0} ? 'edit' : 'add'"  th:action="@{'/question/'+${addOrEdit}}" th:object="${question}">
+<form method="post" th:action="@{'/question/save/'}" th:object="${question}">
 
 
-    <input type="hidden"  th:field="*{id}" th:value="${question.id}" >
+    <input type="hidden"  th:field="*{id}" th:value="${question.id}">
     <input type="hidden" th:field="*{quiz}" th:value="${question.quiz}">
 
     <label for="Text">Question text:</label>
